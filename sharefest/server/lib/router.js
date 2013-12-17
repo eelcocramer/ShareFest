@@ -32,7 +32,11 @@ exports.configure = function (app, rootdir) {
         }
 
         console.log('/client.js requested. Parsing user agent ' + ua);
-        var debug = url.parse(req.headers.referer).query == 'debuggee' || (domain == 'localhost');
+        var debug = false;
+
+        try {
+            debug = (domain == 'localhost') || url.parse(req.headers.referer).query == 'debuggee';  
+        } 
 
         //get info from IP
         var ip = null;
