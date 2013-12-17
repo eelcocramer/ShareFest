@@ -36,7 +36,7 @@ exports.configure = function (app, rootdir) {
 
         try {
             debug = (domain == 'localhost') || url.parse(req.headers.referer).query == 'debuggee';  
-        } 
+        } catch (err) {}
 
         //get info from IP
         var ip = null;
@@ -49,7 +49,7 @@ exports.configure = function (app, rootdir) {
             files = (modes[mode]);
         }
 
-        var js = buildify().concat(files);
+        var js = buildify('..').concat(files);
         js = js.perform(function (content) {
             return content.replace(/peer5.config.BLOCK_SIZE/g, config.blockSize);
         });
